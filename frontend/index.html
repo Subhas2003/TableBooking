@@ -1,0 +1,584 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TableReserve Pro - Restaurant Table Booking</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Add Chart.js for Analytics -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="gradient-bg min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 z-50 glass-effect">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-2">
+                    <i data-lucide="utensils" class="w-8 h-8 text-yellow-500"></i>
+                    <span class="text-xl md:text-2xl font-serif font-bold text-white">TableReserve Pro</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#home" class="text-gray-300 hover:text-yellow-500 transition-colors">Home</a>
+                    <a href="#about" class="text-gray-300 hover:text-yellow-500 transition-colors">About</a>
+                    <a href="#menu" class="text-gray-300 hover:text-yellow-500 transition-colors">Menu</a>
+                    <a href="#contact" class="text-gray-300 hover:text-yellow-500 transition-colors">Contact</a>
+                    <button onclick="showAdminLogin()"
+                        class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-6 py-2 rounded-full transition-all btn-shine">
+                        Admin Panel
+                    </button>
+                </div>
+                <button class="md:hidden text-white" onclick="toggleMobileMenu()">
+                    <i data-lucide="menu" class="w-6 h-6"></i>
+                </button>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobileMenu" class="hidden md:hidden glass-effect border-t border-gray-700">
+            <div class="px-4 py-3 space-y-2">
+                <a href="#home" class="block text-gray-300 hover:text-yellow-500 py-2">Home</a>
+                <a href="#home" class="block text-gray-300 hover:text-yellow-500 py-2">About</a>
+                <a href="#menu" class="block text-gray-300 hover:text-yellow-500 py-2">Menu</a>
+                <a href="#contact" class="block text-gray-300 hover:text-yellow-500 py-2">Contact</a>
+                <button onclick="showAdminLogin()" class="w-full text-left text-yellow-500 py-2">Admin Panel</button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="min-h-screen flex items-center justify-center pt-16 relative overflow-hidden">
+        <!-- Background Elements -->
+        <div
+            class="absolute top-20 left-10 w-72 h-72 bg-yellow-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 float-animation">
+        </div>
+        <div class="absolute top-40 right-10 w-72 h-72 bg-purple-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 float-animation"
+            style="animation-delay: 2s;"></div>
+        <div class="absolute bottom-20 left-1/3 w-72 h-72 bg-pink-500 rounded-full mix-blend-multiply filter blur-xl opacity-20 float-animation"
+            style="animation-delay: 4s;"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="slide-in">
+                    <h1 class="text-5xl md:text-7xl font-bold text-white leading-tight mb-6">
+                        Reserve Your <span class="text-yellow-500">Perfect</span> Table
+                    </h1>
+                    <p class="text-xl text-gray-300 mb-8 leading-relaxed">
+                        Experience culinary excellence in an elegant atmosphere. Book your table now and indulge in an
+                        unforgettable dining experience.
+                    </p>
+                    <div class="flex flex-wrap gap-4">
+                        <button onclick="scrollToBooking()"
+                            class="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold px-8 py-4 rounded-full text-lg transition-all btn-shine pulse-glow">
+                            Book a Table
+                        </button>
+                        <button onclick="scrollToMenu()"
+                            class="border-2 border-white text-white hover:bg-white hover:text-black font-semibold px-8 py-4 rounded-full text-lg transition-all">
+                            View Menu
+                        </button>
+                    </div>
+                    <div class="flex items-center gap-8 mt-12">
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-500">500+</div>
+                            <div class="text-gray-400 text-sm">Happy Customers</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-500">50+</div>
+                            <div class="text-gray-400 text-sm">Dishes</div>
+                        </div>
+                        <div class="text-center">
+                            <div class="text-3xl font-bold text-yellow-500">4.9</div>
+                            <div class="text-gray-400 text-sm">Rating</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative float-animation hidden md:block">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=640&h=360&fit=crop"
+                        alt="Restaurant Interior" class="rounded-3xl shadow-2xl w-full">
+                    <div class="absolute -bottom-6 -left-6 bg-white rounded-2xl p-4 shadow-xl">
+                        <div class="flex items-center gap-3">
+                            <div class="w-12 h-12 bg-yellow-500 rounded-full flex items-center justify-center">
+                                <i data-lucide="star" class="w-6 h-6 text-black"></i>
+                            </div>
+                            <div>
+                                <div class="font-semibold text-gray-800">Best Restaurant</div>
+                                <!-- <div class="text-sm text-gray-500">2024 Award Winner</div> -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Booking Section -->
+    <section id="booking" class="py-20 relative">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12 slide-in">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Make a Reservation</h2>
+                <p class="text-gray-300 text-lg">Book your table in just a few simple steps</p>
+            </div>
+
+            <!-- Booking Form -->
+            <div id="bookingForm" class="glass-effect rounded-3xl p-8 md:p-12 card-hover">
+                <form id="reservationForm" class="space-y-6">
+                    <div class="grid md:grid-cols-2 gap-6">
+                        <!-- Name -->
+                        <div class="space-y-2">
+                            <label class="text-white font-medium flex items-center gap-2">
+                                <i data-lucide="user" class="w-4 h-4 text-yellow-500"></i>
+                                Full Name
+                            </label>
+                            <input type="text" id="name" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 input-focus focus:outline-none"
+                                placeholder="John Doe">
+                        </div>
+
+                        <!-- Email -->
+                        <div class="space-y-2">
+                            <label class="text-white font-medium flex items-center gap-2">
+                                <i data-lucide="mail" class="w-4 h-4 text-yellow-500"></i>
+                                Email Address
+                            </label>
+                            <input type="email" id="email" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 input-focus focus:outline-none"
+                                placeholder="john@example.com">
+                        </div>
+
+                        <!-- Phone -->
+                        <div class="space-y-2">
+                            <label class="text-white font-medium flex items-center gap-2">
+                                <i data-lucide="phone" class="w-4 h-4 text-yellow-500"></i>
+                                Phone Number
+                            </label>
+                            <input type="tel" id="phone" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 input-focus focus:outline-none"
+                                placeholder="+1 (555) 123-4567">
+                        </div>
+
+                        <!-- Seats -->
+                        <div class="space-y-2">
+                            <label class="text-white font-medium flex items-center gap-2">
+                                <i data-lucide="users" class="w-4 h-4 text-yellow-500"></i>
+                                Number of Guests
+                            </label>
+                            <select id="seats" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white input-focus focus:outline-none appearance-none">
+                                <option value="" class="bg-gray-800 text-white">Select guests</option>
+                                <option value="1" class="bg-gray-800 text-white">1 Person</option>
+                                <option value="2" class="bg-gray-800 text-white">2 People</option>
+                                <option value="3" class="bg-gray-800 text-white">3 People</option>
+                                <option value="4" class="bg-gray-800 text-white">4 People</option>
+                                <option value="5" class="bg-gray-800 text-white">5 People</option>
+                                <option value="6" class="bg-gray-800 text-white">6 People</option>
+                                <option value="7" class="bg-gray-800 text-white">7 People</option>
+                                <option value="8" class="bg-gray-800 text-white">8+ People</option>
+                            </select>
+                        </div>
+
+                        <!-- Date -->
+                        <div class="space-y-2">
+                            <label class="text-white font-medium flex items-center gap-2">
+                                <i data-lucide="calendar" class="w-4 h-4 text-yellow-500"></i>
+                                Date
+                            </label>
+                            <input type="date" id="date" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white input-focus focus:outline-none">
+                        </div>
+
+                        <!-- Time -->
+                        <div class="space-y-2">
+                            <label class="text-white font-medium flex items-center gap-2">
+                                <i data-lucide="clock" class="w-4 h-4 text-yellow-500"></i>
+                                Time
+                            </label>
+                            <select id="time" required
+                                class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white input-focus focus:outline-none appearance-none">
+                                <option value="" class="bg-gray-800 text-white">Select time</option>
+                                <option value="11:00" class="bg-gray-800 text-white">11:00 AM</option>
+                                <option value="12:00" class="bg-gray-800 text-white">12:00 PM</option>
+                                <option value="13:00" class="bg-gray-800 text-white">1:00 PM</option>
+                                <option value="14:00" class="bg-gray-800 text-white">2:00 PM</option>
+                                <option value="17:00" class="bg-gray-800 text-white">5:00 PM</option>
+                                <option value="18:00" class="bg-gray-800 text-white">6:00 PM</option>
+                                <option value="19:00" class="bg-gray-800 text-white">7:00 PM</option>
+                                <option value="20:00" class="bg-gray-800 text-white">8:00 PM</option>
+                                <option value="21:00" class="bg-gray-800 text-white">9:00 PM</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Special Requests -->
+                    <div class="space-y-2">
+                        <label class="text-white font-medium flex items-center gap-2">
+                            <i data-lucide="message-square" class="w-4 h-4 text-yellow-500"></i>
+                            Special Requests (Optional)
+                        </label>
+                        <textarea id="specialRequests" rows="3"
+                            class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 input-focus focus:outline-none resize-none"
+                            placeholder="Any dietary restrictions, special occasions, or seating preferences..."></textarea>
+                    </div>
+
+                    <!-- Submit Button -->
+                    <button type="submit" id="submitBtn"
+                        class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-4 rounded-xl text-lg transition-all btn-shine flex items-center justify-center gap-2">
+                        <span id="btnText">Confirm Reservation</span>
+                        <div id="btnLoader" class="loading-spinner hidden"></div>
+                    </button>
+                </form>
+            </div>
+
+            <!-- Success Message -->
+            <div id="successMessage" class="hidden glass-effect rounded-3xl p-8 md:p-12 text-center scale-in">
+                <div class="success-checkmark">
+                    <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                        <circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none" />
+                        <path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8" />
+                    </svg>
+                </div>
+                <h3 class="text-3xl font-bold text-white mb-4">Reservation Confirmed!</h3>
+                <p class="text-gray-300 mb-2">Thank you, <span id="successName"
+                        class="text-yellow-500 font-semibold"></span>!</p>
+                <p class="text-gray-300 mb-6">A confirmation SMS has been sent to <span id="successPhone"
+                        class="text-yellow-500"></span></p>
+                <div class="bg-white/10 rounded-xl p-6 mb-6">
+                    <div class="grid grid-cols-2 gap-4 text-left">
+                        <div>
+                            <div class="text-gray-400 text-sm">Date</div>
+                            <div class="text-white font-semibold" id="successDate"></div>
+                        </div>
+                        <div>
+                            <div class="text-gray-400 text-sm">Time</div>
+                            <div class="text-white font-semibold" id="successTime"></div>
+                        </div>
+                        <div>
+                            <div class="text-gray-400 text-sm">Guests</div>
+                            <div class="text-white font-semibold" id="successSeats"></div>
+                        </div>
+                        <div>
+                            <div class="text-gray-400 text-sm">Booking ID</div>
+                            <div class="text-yellow-500 font-semibold" id="successId"></div>
+                        </div>
+                    </div>
+                </div>
+                <button onclick="resetBooking()"
+                    class="bg-white/10 hover:bg-white/20 text-white font-semibold px-8 py-3 rounded-full transition-all">
+                    Make Another Reservation
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="py-20 hidden md:block">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-3 gap-8">
+                <div class="glass-effect rounded-2xl p-8 text-center card-hover slide-in">
+                    <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="clock" class="w-8 h-8 text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Quick Booking</h3>
+                    <p class="text-gray-300">Reserve your table in less than 2 minutes with our streamlined booking
+                        process.</p>
+                </div>
+                <div class="glass-effect rounded-2xl p-8 text-center card-hover slide-in"
+                    style="animation-delay: 0.1s;">
+                    <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="bell" class="w-8 h-8 text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Instant Confirmation</h3>
+                    <p class="text-gray-300">Receive immediate SMS confirmation with all your booking details.</p>
+                </div>
+                <div class="glass-effect rounded-2xl p-8 text-center card-hover slide-in"
+                    style="animation-delay: 0.2s;">
+                    <div class="w-16 h-16 bg-yellow-500 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <i data-lucide="shield-check" class="w-8 h-8 text-black"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Secure & Reliable</h3>
+                    <p class="text-gray-300">Your information is protected with enterprise-grade security.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Menu Preview Section -->
+    <section id="menu" class="py-20">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-4xl md:text-5xl font-bold text-white mb-4">Our Menu</h2>
+                <p class="text-gray-300 text-lg">Discover our chef's special creations</p>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                <!-- Menu items here... -->
+                <div class="glass-effect rounded-2xl overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=320&h=240&fit=crop"
+                        alt="Dish" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="text-white font-semibold mb-2">Truffle Pasta</h4>
+                        <p class="text-gray-400 text-sm mb-3">Fresh pasta with black truffle</p>
+                    </div>
+                </div>
+                <div class="glass-effect rounded-2xl overflow-hidden card-hover">
+                    <img src="https://images.unsplash.com/photo-1563379926898-05f4575a45d8?w=320&h=240&fit=crop"
+                        alt="Dish" class="w-full h-48 object-cover">
+                    <div class="p-4">
+                        <h4 class="text-white font-semibold mb-2">Truffle Pasta</h4>
+                        <p class="text-gray-400 text-sm mb-3">Fresh pasta with black truffle</p>
+                    </div>
+                </div>
+                <!-- Add more menu items if desired -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="py-12 border-t border-white/10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center md:text-left">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center justify-center md:justify-start space-x-2 mb-4">
+                        <i data-lucide="utensils" class="w-6 h-6 text-yellow-500"></i>
+                        <span class="text-xl font-serif font-bold text-white">TableReserve Pro</span>
+                    </div>
+                    <p class="text-gray-400 text-sm">Experience the finest dining with seamless reservations.</p>
+                </div>
+                <!-- Footer Links -->
+                <div>
+                    <h4 class="text-white font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400 text-sm flex flex-col items-center md:items-start">
+                        <li class="flex items-center gap-2"><i data-lucide="phone" class="w-4 h-4"></i> +1 (555)
+                            123-4567</li>
+                        <li class="flex items-center gap-2"><i data-lucide="mail" class="w-4 h-4"></i>
+                            hello@tablereserve.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-white/10 pt-8 text-center text-gray-400 text-sm">
+                <p>&copy; 2024 TableReserve Pro. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Admin Login Modal -->
+    <div id="adminLoginModal"
+        class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm">
+        <div class="glass-effect rounded-3xl p-8 w-full max-w-md mx-4 scale-in">
+            <div class="flex justify-between items-center mb-6">
+                <h3 class="text-2xl font-bold text-white">Admin Login</h3>
+                <button onclick="closeAdminLogin()" class="text-gray-400 hover:text-white">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+            <form id="adminLoginForm" class="space-y-4">
+                <div>
+                    <label class="text-white font-medium block mb-2">Username</label>
+                    <input type="text" id="adminUsername" required
+                        class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 input-focus focus:outline-none"
+                        placeholder="Enter username">
+                </div>
+                <div>
+                    <label class="text-white font-medium block mb-2">Password</label>
+                    <input type="password" id="adminPassword" required
+                        class="w-full px-4 py-3 rounded-xl bg-white/10 border border-white/20 text-white placeholder-gray-400 input-focus focus:outline-none"
+                        placeholder="Enter password">
+                </div>
+                <button type="submit" id="adminLoginBtn"
+                    class="w-full bg-yellow-500 hover:bg-yellow-600 text-black font-bold py-3 rounded-xl transition-all btn-shine flex items-center justify-center gap-2">
+                    <span id="adminLoginText">Login</span>
+                    <div id="adminLoginLoader" class="loading-spinner hidden"></div>
+                </button>
+            </form>
+            <p class="text-gray-400 text-sm text-center mt-4">Username: admin | Password: password123</p>
+        </div>
+    </div>
+
+    <!-- Admin Panel Modal -->
+    <div id="adminPanelModal" class="hidden fixed inset-0 z-50 bg-black/95 overflow-auto">
+        <div class="min-h-screen p-4 md:p-8">
+            <div class="max-w-7xl mx-auto">
+                <!-- Header -->
+                <div class="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
+                    <div class="flex items-center gap-4">
+                        <div class="w-12 h-12 bg-yellow-500 rounded-xl flex items-center justify-center">
+                            <i data-lucide="layout-dashboard" class="w-6 h-6 text-black"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">Admin Dashboard</h2>
+                            <p class="text-gray-400 text-sm">Manage reservations and view analytics</p>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <!-- Navigation Tabs inside Dashboard -->
+                        <button onclick="switchTab('bookingsTab')" id="btnBookingsTab"
+                            class="bg-yellow-500/20 text-yellow-400 hover:bg-yellow-500/30 px-4 py-2 rounded-lg transition-all flex items-center gap-2 border border-yellow-500/50">
+                            <i data-lucide="list" class="w-4 h-4"></i> Bookings
+                        </button>
+                        <button onclick="switchTab('analyticsTab')" id="btnAnalyticsTab"
+                            class="bg-white/10 text-white hover:bg-white/20 px-4 py-2 rounded-lg transition-all flex items-center gap-2">
+                            <i data-lucide="bar-chart-2" class="w-4 h-4"></i> Analytics
+                        </button>
+
+                        <button onclick="refreshBookings()"
+                            class="bg-white/10 hover:bg-white/20 text-white px-4 py-2 rounded-lg transition-all flex items-center gap-2 ml-4">
+                            <i data-lucide="refresh-cw" class="w-4 h-4"></i>
+                        </button>
+                        <button onclick="logoutAdmin()"
+                            class="bg-red-500/20 hover:bg-red-500/30 text-red-400 px-4 py-2 rounded-lg transition-all flex items-center gap-2">
+                            <i data-lucide="log-out" class="w-4 h-4"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Stats Overview -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm focus:outline-none">Total Bookings</p>
+                                <p class="text-3xl font-bold text-white" id="totalBookings">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-blue-500/20 rounded-xl flex items-center justify-center">
+                                <i data-lucide="calendar" class="w-6 h-6 text-blue-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Pending</p>
+                                <p class="text-3xl font-bold text-yellow-500" id="pendingBookings">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-yellow-500/20 rounded-xl flex items-center justify-center">
+                                <i data-lucide="clock" class="w-6 h-6 text-yellow-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Confirmed</p>
+                                <p class="text-3xl font-bold text-green-500" id="confirmedBookings">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-green-500/20 rounded-xl flex items-center justify-center">
+                                <i data-lucide="check-circle" class="w-6 h-6 text-green-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="glass-effect rounded-2xl p-6">
+                        <div class="flex items-center justify-between">
+                            <div>
+                                <p class="text-gray-400 text-sm">Total Guests</p>
+                                <p class="text-3xl font-bold text-purple-500" id="totalGuests">0</p>
+                            </div>
+                            <div class="w-12 h-12 bg-purple-500/20 rounded-xl flex items-center justify-center">
+                                <i data-lucide="users" class="w-6 h-6 text-purple-400"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bookings Tab Content -->
+                <div id="bookingsTab" class="block slide-in">
+                    <!-- Filters -->
+                    <div class="glass-effect rounded-2xl p-4 mb-6 flex flex-wrap gap-4">
+                        <input type="text" id="searchInput" placeholder="Search by name, email..."
+                            class="flex-1 min-w-[200px] px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white placeholder-gray-400 focus:outline-none focus:border-yellow-500">
+                        <select id="statusFilter"
+                            class="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-yellow-500">
+                            <option value="" class="bg-gray-800 text-white">All Status</option>
+                            <option value="pending" class="bg-gray-800 text-white">Pending</option>
+                            <option value="confirmed" class="bg-gray-800 text-white">Confirmed</option>
+                            <option value="cancelled" class="bg-gray-800 text-white">Cancelled</option>
+                            <option value="completed" class="bg-gray-800 text-white">Completed</option>
+                        </select>
+                        <input type="date" id="dateFilter"
+                            class="px-4 py-2 rounded-lg bg-white/10 border border-white/20 text-white focus:outline-none focus:border-yellow-500">
+                    </div>
+
+                    <!-- Bookings Table -->
+                    <div class="glass-effect rounded-2xl overflow-hidden">
+                        <div class="overflow-x-auto">
+                            <table class="w-full">
+                                <thead class="bg-white/5">
+                                    <tr>
+                                        <th class="text-left text-gray-400 font-medium p-4">Customer</th>
+                                        <th class="text-left text-gray-400 font-medium p-4">Contact</th>
+                                        <th class="text-left text-gray-400 font-medium p-4">Date & Time</th>
+                                        <th class="text-left text-gray-400 font-medium p-4">Seats</th>
+                                        <th class="text-left text-gray-400 font-medium p-4">Status</th>
+                                        <th class="text-left text-gray-400 font-medium p-4">Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="bookingsTableBody" class="divide-y divide-white/10">
+                                    <!-- Bookings will be loaded here -->
+                                </tbody>
+                            </table>
+                        </div>
+                        <div id="noBookings" class="hidden p-8 text-center text-gray-400">
+                            <i data-lucide="inbox" class="w-12 h-12 mx-auto mb-4 opacity-50"></i>
+                            <p>No bookings found</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Analytics Tab Content -->
+                <div id="analyticsTab" class="hidden slide-in space-y-8">
+                    <!-- Charts Grid -->
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                        <!-- Chart 1: Bookings Over Time (Last 7 Days) -->
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-white font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="trending-up" class="w-5 h-5 text-yellow-500"></i> Bookings Over Last 7
+                                Days
+                            </h3>
+                            <div class="h-64 w-full">
+                                <canvas id="bookingsTrendChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Chart 2: Popular Timeslots -->
+                        <div class="glass-effect rounded-2xl p-6">
+                            <h3 class="text-white font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="pie-chart" class="w-5 h-5 text-purple-400"></i> Popular Times
+                            </h3>
+                            <div class="h-64 w-full flex justify-center">
+                                <canvas id="popularTimesChart"></canvas>
+                            </div>
+                        </div>
+
+                        <!-- Chart 3: Guests per Day -->
+                        <div class="glass-effect rounded-2xl p-6 lg:col-span-2">
+                            <h3 class="text-white font-semibold mb-4 flex items-center gap-2">
+                                <i data-lucide="users" class="w-5 h-5 text-green-400"></i> Expected Guests by Date
+                            </h3>
+                            <div class="h-64 w-full">
+                                <canvas id="guestsChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div id="toast"
+        class="hidden fixed bottom-4 right-4 z-50 glass-effect rounded-xl p-4 flex items-center gap-3 slide-in">
+        <div id="toastIcon"></div>
+        <div>
+            <p id="toastTitle" class="font-semibold text-white"></p>
+            <p id="toastMessage" class="text-gray-400 text-sm"></p>
+        </div>
+    </div>
+
+    <script src="js/script.js">
+    </script>
+</body>
+
+</html>
