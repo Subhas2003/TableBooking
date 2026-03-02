@@ -1,5 +1,5 @@
  // Store API Base URL
-        const API_URL = 'https://tablereserve-api.onrender.com';
+        const API_URL = 'https://tablereserve-api.onrender.com/api';
 
         let allBookings = [];
         let trendChartInstance = null;
