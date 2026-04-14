@@ -1,5 +1,11 @@
  // Store API Base URL
-        const API_URL = 'https://tablereserve-api.onrender.com/api';
+        const API_URL = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.protocol === 'file:') 
+            ? 'http://localhost:5000/api' 
+            : 'https://tablereserve-api.onrender.com/api';
+
+        // Wake up Render instance in the background immediately
+        fetch(`${API_URL}/ping`).catch(() => {});
+
 
         let allBookings = [];
         let trendChartInstance = null;

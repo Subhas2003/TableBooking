@@ -34,6 +34,11 @@ const admin = require('./routes/admin');
 app.use('/api/bookings', bookings);
 app.use('/api/admin', admin);
 
+// Ping route to wake up Render instances
+app.get('/api/ping', (req, res) => {
+    res.status(200).json({ success: true, message: 'Pong' });
+});
+
 // Error processing middleware
 app.use((err, req, res, next) => {
     console.error(err.stack);
